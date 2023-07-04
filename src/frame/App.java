@@ -20,6 +20,7 @@ public class App {
 	private JTable table;
 	String[][] data;
 	DefaultTableModel model;
+
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +42,7 @@ public class App {
 	 */
 	public App() {
 		createStudents();
-		
+
 		initialize();
 
 	}
@@ -71,14 +72,14 @@ public class App {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				
-				
-				if(!e.getValueIsAdjusting()) {
-					String line = table.getModel().getValueAt(table.getSelectedRow(), 0).toString()+" irodalom: ";
-					line += table.getModel().getValueAt(table.getSelectedRow(), 1).toString();
-					line += " matek: ";
-					line += table.getModel().getValueAt(table.getSelectedRow(), 2).toString();
-JOptionPane.showMessageDialog(frame, line, "adatok", JOptionPane.PLAIN_MESSAGE, null);	
+
+				if (!e.getValueIsAdjusting()) {
+					StringBuilder row = new StringBuilder();
+					row.append(table.getModel().getValueAt(table.getSelectedRow(), 0).toString() + " irodalom: ");
+					row.append(table.getModel().getValueAt(table.getSelectedRow(), 1).toString());
+					row.append(" matek: ");
+					row.append(table.getModel().getValueAt(table.getSelectedRow(), 2).toString());
+					JOptionPane.showMessageDialog(frame, row, "adatok", JOptionPane.PLAIN_MESSAGE, null);
 				}
 			}
 		});
@@ -91,34 +92,34 @@ JOptionPane.showMessageDialog(frame, line, "adatok", JOptionPane.PLAIN_MESSAGE, 
 	}
 
 	private void createStudents() {
-		tanulok.add(new Tanulo(1,"Kis Pista", (byte) 2, (byte) 2));
-		tanulok.add(new Tanulo(2,"Nagy Elek", (byte) 3, (byte) 2));
-		tanulok.add(new Tanulo(3,"Horváth Béla", (byte) 4, (byte) 2));
-		tanulok.add(new Tanulo(4,"John Doe", (byte) 41, (byte) 2));
-		tanulok.add(new Tanulo(5,"Kovács Fruzsina", (byte) 3, (byte) 2));
-		tanulok.add(new Tanulo(6,"Cserepes Virág", (byte) 5, (byte) 2));
+		tanulok.add(new Tanulo(1, "Kis Pista", (byte) 2, (byte) 2));
+		tanulok.add(new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 2));
+		tanulok.add(new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 2));
+		tanulok.add(new Tanulo(4, "John Doe", (byte) 41, (byte) 2));
+		tanulok.add(new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2));
+		tanulok.add(new Tanulo(6, "Cserepes Virág", (byte) 5, (byte) 2));
 	}
 
 	private void getAllData() {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
-			if(tanulo.getIrodalom()>0) {
+			if (tanulo.getIrodalom() > 0) {
 				Object[] o = new Object[4];
 				o[0] = tanulo.getName();
 				o[1] = tanulo.getIrodalom();
 				o[2] = tanulo.getMatek();
 				o[3] = tanulo.getAzonosito();
-				model.addRow(o);	
+				model.addRow(o);
 			}
-			
+
 		}
 	}
-	
+
 	private void removeAllRows() {
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		int rowCount = dm.getRowCount();
 		for (int i = rowCount - 1; i >= 0; i--) {
-		    dm.removeRow(i);
+			dm.removeRow(i);
 		}
 	}
 
